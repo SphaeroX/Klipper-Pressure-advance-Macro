@@ -41,4 +41,4 @@ CALCULATE_PA MATERIAL=PLA BOWDEN_LENGTH=20 LAYER_HEIGHT=[layer_height] NOZZLE_SI
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for more information.
+This project is licensed under the MIT License. See MIT LICENSE for more information.
