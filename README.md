@@ -2,11 +2,14 @@
 
 This repository contains a Klipper macro for automatically setting the Pressure Advance value based on the provided parameters.
 
+
 ## Macro
 
 Add the following macro to your `printer.cfg` file:
 
 ```
+# BOWDEN_LENGTH, LAYER_HEIGHT and  NOZZLE_SIZE in millimeters
+# PRINT_SPEED in millimeters per secound
 [gcode_macro CALCULATE_PA]
 gcode:
     {% set material = params.MATERIAL|default("PLA") %}
