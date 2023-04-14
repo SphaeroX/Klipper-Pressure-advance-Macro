@@ -30,7 +30,7 @@ CALCULATE_PA MATERIAL=PLA BOWDEN_LENGTH=31 LAYER_HEIGHT=0.2 NOZZLE_SIZE=0.4 PRIN
 
 This macro calculates the Pressure Advance value based on the provided parameters and sets it for the extruder. Note that the material constants in the macro definition are only meant as starting values. You can adjust these values to achieve the best performance for your specific material and printer.
 
-## Usage
+## PrusaSlicer Integration
 
 PrusaSlicer Start G-Code Integration
 
