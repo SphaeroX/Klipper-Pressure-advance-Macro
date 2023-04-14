@@ -8,7 +8,8 @@ This repository contains a Klipper macro for automatically setting the Pressure 
 Add the following macro to your `printer.cfg` file:
 
 ```
-# BOWDEN_LENGTH, LAYER_HEIGHT and  NOZZLE_SIZE in millimeters
+# BOWDEN_LENGTH in centimeters
+# LAYER_HEIGHT and NOZZLE_SIZE in millimeters
 # PRINT_SPEED in millimeters per secound
 [gcode_macro CALCULATE_PA]
 gcode:
