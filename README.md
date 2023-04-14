@@ -8,15 +8,15 @@ Add the following macro to your `printer.cfg` file:
 
 ```
 [gcode_macro CALCULATE_PA]
-default_parameter_MATERIAL: PLA
-default_parameter_BOWDEN_LENGTH: 31
-default_parameter_LAYER_HEIGHT: 0.2
-default_parameter_NOZZLE_SIZE: 0.4
-default_parameter_PRINT_SPEED: 180
 gcode:
-    {% set material_constant = {'PLA': 100, 'PETG': 120, 'ABS': 110, 'Nylon': 130, 'TPU': 150, 'PVB': 100}[MATERIAL] %}
-    {% set vfr = NOZZLE_SIZE|float * LAYER_HEIGHT|float * PRINT_SPEED|float %}
-    {% set pressure_advance = (vfr * BOWDEN_LENGTH|float) / material_constant %}
+    {% set material = params.MATERIAL|default("PLA") %}
+    {% set bowden_length = (params.BOWDEN_LENGTH|default(31)|float) / 10 %}
+    {% set layer_height = params.LAYER_HEIGHT|default(0.2)|float %}
+    {% set nozzle_size = params.NOZZLE_SIZE|default(0.4)|float %}
+    {% set print_speed = params.PRINT_SPEED|default(180)|float %}
+    {% set material_constant = {'PLA': 100, 'PETG': 120, 'ABS': 110, 'Nylon': 130, 'TPU': 150, 'PVB': 100}[material] %}
+    {% set vfr = nozzle_size * layer_height * print_speed %}
+    {% set pressure_advance = (vfr * bowden_length) / material_constant %}
     SET_PRESSURE_ADVANCE ADVANCE={pressure_advance}
 ```
 
