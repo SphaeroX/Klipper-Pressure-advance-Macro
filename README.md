@@ -26,22 +26,13 @@ gcode:
 
 ## Usage
 
-To use the macro in your G-Code files, add the following line before the print starts:
+To use the macro in your G-Code files, add the following line in your PrusaSlicer Start GCode before the print starts:
 
 ```
-CALCULATE_PA MATERIAL=[filament_type] BOWDEN_LENGTH=6 LAYER_HEIGHT=[layer_height] NOZZLE_SIZE=[nozzle_diameter] PRINT_SPEED=[perimeter_speed]
+CALCULATE_PA BOWDEN_LENGTH=6  MATERIAL=[filament_type] LAYER_HEIGHT=[layer_height] NOZZLE_SIZE=[nozzle_diameter] PRINT_SPEED=[perimeter_speed]
 ```
 
 This macro calculates the Pressure Advance value based on the provided parameters and sets it for the extruder. Note that the material constants in the macro definition are only meant as starting values. You can adjust these values to achieve the best performance for your specific material and printer.
-
-## PrusaSlicer Integration
-
-PrusaSlicer Start G-Code Integration
-
-```
-; Call the Pressure Advance macro
-CALCULATE_PA MATERIAL=PLA BOWDEN_LENGTH=20 LAYER_HEIGHT=[layer_height] NOZZLE_SIZE=[nozzle_diameter] PRINT_SPEED=[perimeter_speed]
-```
 
 ## License
 
