@@ -18,7 +18,7 @@ gcode:
     {% set layer_height = params.LAYER_HEIGHT|default(0.2)|float %}
     {% set nozzle_size = params.NOZZLE_SIZE|default(0.4)|float %}
     {% set print_speed = params.PRINT_SPEED|default(180)|float %}
-    {% set material_constant = {'PLA': 100, 'PETG': 120, 'ABS': 110, 'Nylon': 130, 'TPU': 150, 'PVB': 100}[material] %}
+    {% set material_constant = {'PLA': 100, 'PET': 120, 'ABS': 110, 'Nylon': 130, 'TPU': 150, 'PVB': 100}[material] %}
     {% set vfr = nozzle_size * layer_height * print_speed %}
     {% set pressure_advance = (vfr * bowden_length) / material_constant %}
     SET_PRESSURE_ADVANCE ADVANCE={pressure_advance}
@@ -29,7 +29,7 @@ gcode:
 To use the macro in your G-Code files, add the following line before the print starts:
 
 ```
-CALCULATE_PA MATERIAL=PLA BOWDEN_LENGTH=31 LAYER_HEIGHT=0.2 NOZZLE_SIZE=0.4 PRINT_SPEED=180
+CALCULATE_PA MATERIAL=[filament_type] BOWDEN_LENGTH=6 LAYER_HEIGHT=[layer_height] NOZZLE_SIZE=[nozzle_diameter] PRINT_SPEED=[perimeter_speed]
 ```
 
 This macro calculates the Pressure Advance value based on the provided parameters and sets it for the extruder. Note that the material constants in the macro definition are only meant as starting values. You can adjust these values to achieve the best performance for your specific material and printer.
