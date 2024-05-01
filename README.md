@@ -18,7 +18,7 @@ gcode:
     {% set layer_height = params.LAYER_HEIGHT|default(0.2)|float %}
     {% set nozzle_size = params.NOZZLE_SIZE|default(0.4)|float %}
     {% set print_speed = params.PRINT_SPEED|default(180)|float %}
-    {% set material_constant = {'PLA': 100, 'PET': 120, 'ABS': 110, 'Nylon': 130, 'TPU': 150, 'PVB': 100}[material] %}
+    {% set material_constant = {'PLA': 100, 'PET': 120, 'PETG': 120, 'ABS': 110, 'Nylon': 130, 'TPU': 150, 'PVB': 100}[material] %}
     {% set vfr = nozzle_size * layer_height * print_speed %}
     {% set pressure_advance = (vfr * bowden_length) / material_constant %}
     SET_PRESSURE_ADVANCE ADVANCE={pressure_advance}
