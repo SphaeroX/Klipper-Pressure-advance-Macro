@@ -14,15 +14,28 @@ Add the following macro to your `printer.cfg` file:
 [gcode_macro CALCULATE_PA]
 gcode:
     {% set material = params.MATERIAL|default("PLA") %}
-    {% set bowden_length = (params.BOWDEN_LENGTH|default(31)|float) / 10 %}
+    {% set bowden_length_cm = params.BOWDEN_LENGTH|default(31)|float %}
+    {% set bowden_length_dm = bowden_length_cm / 10 %}  # Convert cm to decimeters for consistency
     {% set layer_height = params.LAYER_HEIGHT|default(0.2)|float %}
     {% set nozzle_size = params.NOZZLE_SIZE|default(0.4)|float %}
-    {% set print_speed = params.PRINT_SPEED|default(180)|float %}
-    {% set material_constant = {'PLA': 100, 'PET': 120, 'PETG': 120, 'ABS': 110, 'NYLON': 130, 'TPU': 150, 'PVB': 100, 'PA': 130, 'ASA': 110, 'FLEX': 150}[material] %}
-    {% set vfr = nozzle_size * layer_height * print_speed %}
-    {% set pressure_advance = (vfr * bowden_length) / material_constant %}
+    {% set line_width = params.LINE_WIDTH|default(nozzle_size * 1.2)|float %}
+    {% set print_speed = params.PRINT_SPEED|default(60)|float %}
+    {% set filament_diameter = params.FILAMENT_DIAMETER|default(1.75)|float %}
+    {% set filament_area = 3.1416 * (filament_diameter / 2) ** 2 %}
+    {% set flow_rate = line_width * layer_height * print_speed %}
+    {% set material_constant = {
+        'PLA': 85,
+        'PETG': 100,
+        'ABS': 95,
+        'TPU': 140,
+        'NYLON': 120,
+        'ASA': 100,
+        'PVB': 85,
+        'PA': 120,
+        'FLEX': 140
+    }[material] %}
+    {% set pressure_advance = (flow_rate * bowden_length_dm) / (material_constant * filament_area) %}
     SET_PRESSURE_ADVANCE ADVANCE={pressure_advance}
-
 ```
 
 ## Usage
@@ -30,7 +43,7 @@ gcode:
 To use the macro in your G-Code files, add the following line in your PrusaSlicer Start GCode before the print starts:
 
 ```
-CALCULATE_PA BOWDEN_LENGTH=6  MATERIAL=[filament_type] LAYER_HEIGHT=[layer_height] NOZZLE_SIZE=[nozzle_diameter] PRINT_SPEED=[perimeter_speed]
+CALCULATE_PA BOWDEN_LENGTH=6 MATERIAL=[filament_type] LAYER_HEIGHT=[layer_height] NOZZLE_SIZE=[nozzle_diameter] PRINT_SPEED=[perimeter_speed] FILAMENT_DIAMETER=[filament_diameter] LINE_WIDTH=[line_width]
 ```
 
 This macro calculates the Pressure Advance value based on the provided parameters and sets it for the extruder. Note that the material constants in the macro definition are only meant as starting values. You can adjust these values to achieve the best performance for your specific material and printer.
