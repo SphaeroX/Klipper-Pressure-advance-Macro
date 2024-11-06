@@ -14,14 +14,14 @@ Add the following macro to your `printer.cfg` file:
 [gcode_macro CALCULATE_PA]
 gcode:
     {% set material = params.MATERIAL|default("PLA") %}
-    {% set bowden_length_cm = params.BOWDEN_LENGTH|default(31)|float %}
+    {% set bowden_length_cm = params.BOWDEN_LENGTH|default(0.4)|float %} #use 75% of the retraction length for direct drive
     {% set bowden_length_dm = bowden_length_cm / 10 %}  # Convert cm to decimeters for consistency
     {% set layer_height = params.LAYER_HEIGHT|default(0.2)|float %}
     {% set nozzle_size = params.NOZZLE_SIZE|default(0.4)|float %}
     {% set line_width = params.LINE_WIDTH|default(nozzle_size * 1.2)|float %}
     {% set print_speed = params.PRINT_SPEED|default(60)|float %}
     {% set filament_diameter = params.FILAMENT_DIAMETER|default(1.75)|float %}
-    {% set filament_area = 3.1416 * (filament_diameter / 2) ** 2 %}
+    {% set filament_area = 3.14159 * (filament_diameter / 2) ** 2 %}
     {% set flow_rate = line_width * layer_height * print_speed %}
     {% set material_constant = {
         'PLA': 85,
