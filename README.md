@@ -26,6 +26,7 @@ gcode:
     {% set material_constant = {
         'PLA': 85,
         'PETG': 100,
+        'COPE': 85,
         'ABS': 95,
         'TPU': 140,
         'NYLON': 120,
